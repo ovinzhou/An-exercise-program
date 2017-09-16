@@ -9,15 +9,31 @@
 		    <span v-if="seen">
 		    	现在你能看到我<br>
 	    	</span>
+				<button v-on:click="isSeen" class="is-seen">切换</button><br><br>
+		    <button @click="isSeen" class="is-seen">v-on缩写</button><br>
 		    <ul>
-		    	<li v-for="todo in todos">
-		    		{{todo.text}}
+		    	<li v-for="(todo,index) in todos">
+		    		{{index}}.{{todo.text}}
 		    	</li>
 		    </ul>
-		    <button v-on:click="isSeen" class="is-seen">切换</button><br><br>
-		    <button @click="isSeen" class="is-seen">v-on缩写</button><br>
+				<ul>
+		    	<li v-for="(value,key,index) in object">
+		    		{{ index }}. {{ key }}: {{ value }}
+		    	</li>
+		    </ul>
+				<ul>
+					<li v-for="item in items"><!--计算机属性的的办法取整-->
+						{{item}}
+					</li>
+				</ul>
+				<ul>
+					<li v-for="n in evenNumber(number)"><!--method的方法-->
+						{{n}}
+					</li>
+				</ul>
+				<ul><li v-for="i in 4">{{i}}</li></ul><!--此时n也取整-->
 		    <span>{{sxmessage}}</span><br>
-		    <input type="" name="" v-model="sxmessage"><br>
+		    <input type="" name="" v-model.lazy="sxmessage"><br><!--加上.lazy就会阻断同步-->
 				<a v-bind:href="url">v-bind绑定URL</a><br>
 				<a :href="url">v-bind缩写</a><br>
 				<p>Original message: "{{ over }}"</p>
@@ -44,6 +60,49 @@
 				<div v-else-if="type === 'C'">C</div>
 				<div v-else>Not A/B/C</div><!--  v-else-if的用法  -->
 				<p v-show="isShow">v-show是否显示,此时v-show为true</p>
+				<input v-model="newContentText" v-on:keyup.enter="addNewContent" placeholder="Add a content">
+				<ul>
+					<li v-for="(content,index) in contents">
+						{{content.id}}.{{content.text}}
+						<button @click="removeContent(index)">删除</button>
+					</li>
+				</ul>
+				<button @click="counter += 1">增加1</button>
+				<p>这个按钮被点击了 {{ counter }} 次。</p>
+				<input type="checkbox" name="jack" value="jack" v-model="checkedNames">
+				<label for="jack">Jack</label>
+				<input type="checkbox" name="tom" value="tom" v-model="checkedNames">
+				<label for="tom">Tom</label>
+				<input type="checkbox" name="ovin" value="ovin" v-model="checkedNames">
+				<label for="ovin">Ovin</label>
+				<p>你选择了谁？{{checkedNames}}</p>
+				<input type="radio" id="man" value="男" v-model="choose">
+				<label for="man">男</label>
+				<input type="radio" id="woman" value="女" v-model="choose">
+				<label for="woman">女</label>
+				<p>你的性别：{{choose}}</p>
+				<select v-model="selected">
+					<option value="" disabled>请选择</option>
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
+					<option>D</option>
+					<option>F</option>
+				</select>
+				<span>你的选择：{{selected}}</span>
+				<select v-model="selecteds" multiple style="width: 78px;height: 105px;">
+					<option value="" disabled>可以多选</option>
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
+					<option>D</option>
+					<option>F</option>
+				</select>
+				<span>你的选择：{{selecteds}}</span>
+				<select v-model="vforselect">
+					<option v-for="vfor in vfors" v-bind:value="vfor.value">{{vfor.text}}</option>
+				</select>
+				<span>你的选择：{{vforselect}}</span>
 		</div>
 	</div>
 </template>
@@ -59,10 +118,15 @@
 		    	message: '页面加载于 ' + new Date().toLocaleString(),
 		    	seen: true,
 		    	todos:[
-			        { text: '学习 JavaScript' },
-			        { text: '学习 Vue' },
-			        { text: '整个牛项目' }
+			        { text: 'Vue' },
+			        { text: 'Angular' },
+			        { text: 'React' },
 		    	],
+					object: {
+						add: 'ShenZhen',
+						age: '21',
+						name: 'ovin'
+					},
 		    	sxmessage: '双向绑定',
 		    	vhtml:'<p>v-html指令的用法</p>',
 					url:'www.baidu.com',
@@ -87,6 +151,30 @@
 					},
 					type: 'A',
 					isShow: true,
+					number: [1,2,3,4,5],
+					contents:[
+						{
+							id: 1,
+							text: '你好！'
+						},
+						{
+							id: 2,
+							text: 'Hello！'
+						},
+					],
+					contentId : 3,
+					newContentText : '',
+					counter: 0,
+					checkedNames: [],
+					choose: '',
+					selected: '',
+					selecteds: [],
+					vforselect: 'A',
+					vfors: [
+			      { text: 'One', value: 'A' },
+			      { text: 'Two', value: 'B' },
+			      { text: 'Three', value: 'C' }
+			    ]
 		    }
 		},
 		methods:{//方法
@@ -106,6 +194,21 @@
 				this.isActive = false
 				this.hasError = true
 			},
+			evenNumber: function(){
+				return this.number.filter(function(number){
+					return number % 2 === 0
+				})
+			},
+			addNewContent: function(){
+				this.contents.push({
+					id: this.contentId++,
+					text: this.newContentText
+				})
+				this.newContentText = ''
+			},
+			removeContent: function(index){
+				this.contents.splice(index,1)
+			}
 		},
 		computed: {//计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。
 			reversedOver: function(){
@@ -113,6 +216,11 @@
 			},
 			now: function(){
 				return new Date().toLocaleString()
+			},
+			items: function(){
+				return this.number.filter(function(number){
+					return number % 2 === 0
+				})
 			}
 		},
 		watch: {
@@ -140,7 +248,7 @@ button{
 	border-radius: 3px;
 }
 .active{
-	color: black;
+	color: rgb(50, 116, 73);
 }
 .text-danger{
 	color: red;
