@@ -2,6 +2,8 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <a v-bind:title="msg">qwe</a>
+    <router-view></router-view>
+    <router-link to="/text">登录</router-link>
   </div>
 </template>
 

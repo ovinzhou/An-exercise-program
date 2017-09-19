@@ -34,75 +34,79 @@
 				<ul><li v-for="i in 4">{{i}}</li></ul><!--此时n也取整-->
 		    <span>{{sxmessage}}</span><br>
 		    <input type="" name="" v-model.lazy="sxmessage"><br><!--加上.lazy就会阻断同步-->
-				<a v-bind:href="url">v-bind绑定URL</a><br>
-				<a :href="url">v-bind缩写</a><br>
-				<p>Original message: "{{ over }}"</p>
-			  <p>Computed reversed message: "{{ reversedOver }}"</p>
-				<p>{{now}}</p>
-				<p>
-			    Ask a yes/no question:<br>
-			    请输入我同意：<input v-model="question">
-			  </p>
-			  <p>{{ answer }}</p>
-				<div class="status" v-bind:class="{active:isActive,'text-danger':hasError}">
-					<p>动态class</p>
-					<button type="button" name="button" v-on:click="isColor()">切换</button>
-				</div>
-				<my-component class="baz boo"></my-component>
-				<share class="baz boo"></share>
-				<div v-bind:style="{width:testDiv.divWidth + 'px',height:testDiv.divHeight + 'px','background-color':testDiv.bgColor}"></div>
-				<div v-bind:style="styleObject"></div>
-				<div v-bind:style="[arrayObject,styleObject]">我是分界线哦</div>
-				<div v-if="Math.random() > 0.5"> Now you see me </div><!-- Math.random()小于1的随机数-->
-				<div v-else> Now you don't </div><!-- v-else必须在v-if的后面否则不会被识别 -->
-				<div v-if="type === 'A'">A</div>
-				<div v-else-if="type === 'B'">B</div>
-				<div v-else-if="type === 'C'">C</div>
-				<div v-else>Not A/B/C</div><!--  v-else-if的用法  -->
-				<p v-show="isShow">v-show是否显示,此时v-show为true</p>
-				<input v-model="newContentText" v-on:keyup.enter="addNewContent" placeholder="Add a content">
-				<ul>
-					<li v-for="(content,index) in contents">
-						{{content.id}}.{{content.text}}
-						<button @click="removeContent(index)">删除</button>
-					</li>
-				</ul>
-				<button @click="counter += 1">增加1</button>
-				<p>这个按钮被点击了 {{ counter }} 次。</p>
-				<input type="checkbox" name="jack" value="jack" v-model="checkedNames">
-				<label for="jack">Jack</label>
-				<input type="checkbox" name="tom" value="tom" v-model="checkedNames">
-				<label for="tom">Tom</label>
-				<input type="checkbox" name="ovin" value="ovin" v-model="checkedNames">
-				<label for="ovin">Ovin</label>
-				<p>你选择了谁？{{checkedNames}}</p>
-				<input type="radio" id="man" value="男" v-model="choose">
-				<label for="man">男</label>
-				<input type="radio" id="woman" value="女" v-model="choose">
-				<label for="woman">女</label>
-				<p>你的性别：{{choose}}</p>
-				<select v-model="selected">
-					<option value="" disabled>请选择</option>
-					<option>A</option>
-					<option>B</option>
-					<option>C</option>
-					<option>D</option>
-					<option>F</option>
-				</select>
-				<span>你的选择：{{selected}}</span>
-				<select v-model="selecteds" multiple style="width: 78px;height: 105px;">
-					<option value="" disabled>可以多选</option>
-					<option>A</option>
-					<option>B</option>
-					<option>C</option>
-					<option>D</option>
-					<option>F</option>
-				</select>
-				<span>你的选择：{{selecteds}}</span>
-				<select v-model="vforselect">
-					<option v-for="vfor in vfors" v-bind:value="vfor.value">{{vfor.text}}</option>
-				</select>
-				<span>你的选择：{{vforselect}}</span>
+			<a v-bind:href="url">v-bind绑定URL</a><br>
+			<a :href="url">v-bind缩写</a><br>
+			<p>Original message: "{{ over }}"</p>
+		    <p>Computed reversed message: "{{ reversedOver }}"</p>
+			<p>{{now}}</p>
+			<p>
+		    Ask a yes/no question:<br>
+		    请输入我同意：<input v-model="question">
+		    </p>
+		    <p>{{ answer }}</p>
+			<div class="status" v-bind:class="{active:isActive,'text-danger':hasError}">
+				<p>动态class</p>
+				<button type="button" name="button" v-on:click="isColor()">切换</button>
+			</div>
+			<my-component class="baz boo"></my-component>
+			<share class="baz boo"></share>
+			<div v-bind:style="{width:testDiv.divWidth + 'px',height:testDiv.divHeight + 'px','background-color':testDiv.bgColor}"></div>
+			<div v-bind:style="styleObject"></div>
+			<div v-bind:style="[arrayObject,styleObject]">我是分界线哦</div>
+			<div v-if="Math.random() > 0.5"> Now you see me </div><!-- Math.random()小于1的随机数-->
+			<div v-else> Now you don't </div><!-- v-else必须在v-if的后面否则不会被识别 -->
+			<div v-if="type === 'A'">A</div>
+			<div v-else-if="type === 'B'">B</div>
+			<div v-else-if="type === 'C'">C</div>
+			<div v-else>Not A/B/C</div><!--  v-else-if的用法  -->
+			<p v-show="isShow">v-show是否显示,此时v-show为true</p>
+			<input v-model="newContentText" v-on:keyup.enter="addNewContent" placeholder="Add a content">
+			<ul>
+				<li v-for="(content,index) in contents">
+					{{content.id}}.{{content.text}}
+					<button @click="removeContent(index)">删除</button>
+				</li>
+			</ul>
+			<button @click="counter += 1">增加1</button>
+			<p>这个按钮被点击了 {{ counter }} 次。</p>
+			<input type="checkbox" name="jack" value="jack" v-model="checkedNames">
+			<label for="jack">Jack</label>
+			<input type="checkbox" name="tom" value="tom" v-model="checkedNames">
+			<label for="tom">Tom</label>
+			<input type="checkbox" name="ovin" value="ovin" v-model="checkedNames">
+			<label for="ovin">Ovin</label>
+			<p>你选择了谁？{{checkedNames}}</p>
+			<input type="radio" id="man" value="男" v-model="choose">
+			<label for="man">男</label>
+			<input type="radio" id="woman" value="女" v-model="choose">
+			<label for="woman">女</label>
+			<p>你的性别：{{choose}}</p>
+			<select v-model="selected">
+				<option value="" disabled>请选择</option>
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+				<option>F</option>
+			</select>
+			<span>你的选择：{{selected}}</span>
+			<select v-model="selecteds" multiple style="width: 78px;height: 105px;">
+				<option value="" disabled>可以多选</option>
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+				<option>F</option>
+			</select>
+			<span>你的选择：{{selecteds}}</span>
+			<select v-model="vforselect">
+				<option v-for="vfor in vfors" v-bind:value="vfor.value">{{vfor.text}}</option>
+			</select>
+			<span>你的选择：{{vforselect}}</span><br>
+		    <router-link to="/text/textrouter">路由测试</router-link>
+		    <router-link to="/text/hello">hello</router-link>
+		    <router-link to="/text">返回</router-link>
+		    <router-view></router-view>
 		</div>
 	</div>
 </template>
