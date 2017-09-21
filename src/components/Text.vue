@@ -21,17 +21,17 @@
 		    		{{ index }}. {{ key }}: {{ value }}
 		    	</li>
 		    </ul>
-				<ul>
-					<li v-for="item in items"><!--计算机属性的的办法取整-->
-						{{item}}
-					</li>
-				</ul>
-				<ul>
-					<li v-for="n in evenNumber(number)"><!--method的方法-->
-						{{n}}
-					</li>
-				</ul>
-				<ul><li v-for="i in 4">{{i}}</li></ul><!--此时n也取整-->
+			<ul>
+				<li v-for="item in items"><!--计算机属性的的办法取整-->
+					{{item}}
+				</li>
+			</ul>
+			<ul>
+				<li v-for="n in evenNumber(number)"><!--method的方法-->
+					{{n}}
+				</li>
+			</ul>
+			<ul><li v-for="i in 4">{{i}}</li></ul><!--此时n也取整-->
 		    <span>{{sxmessage}}</span><br>
 		    <input type="" name="" v-model.lazy="sxmessage"><br><!--加上.lazy就会阻断同步-->
 			<a v-bind:href="url">v-bind绑定URL</a><br>
